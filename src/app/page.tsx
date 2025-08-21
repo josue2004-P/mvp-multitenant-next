@@ -1,102 +1,157 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+    <div className="font-sans bg-gray-50 text-gray-800">
+      {/* Hero Section */}
+      <section className="bg-blue-900 text-white py-20">
+        <div className="max-w-6xl mx-auto text-center px-6">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Sistema de Reporte de Incidencias de Equipos Médicos
+          </h1>
+          <p className="text-lg md:text-xl mb-8">
+            Optimiza la gestión de incidencias en equipos médicos y asegura la
+            continuidad en la atención al paciente.
+          </p>
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contacto"
+            className="bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            Solicitar Demo
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      </section>
+
+      {/* Qué es */}
+      <section className="py-16 max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-8">¿Qué es el sistema?</h2>
+        <p className="text-center text-lg text-gray-700 max-w-3xl mx-auto">
+          El <strong>Sistema de Reporte de Incidencias de Equipos Médicos</strong>
+          permite a hospitales, clínicas y centros de salud registrar fallos o
+          problemas, dar seguimiento a las reparaciones y generar reportes
+          automáticos en tiempo real.
+        </p>
+      </section>
+
+      {/* Servicios */}
+      <section className="py-16 bg-gray-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Servicios que ofrece
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
+              <h3 className="font-semibold text-xl mb-2">Registro en tiempo real</h3>
+              <p>Permite reportar fallos desde cualquier dispositivo.</p>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
+              <h3 className="font-semibold text-xl mb-2">Clasificación automática</h3>
+              <p>Prioriza incidencias según su nivel de urgencia.</p>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
+              <h3 className="font-semibold text-xl mb-2">
+                Asignación de responsables
+              </h3>
+              <p>El sistema asigna al técnico adecuado de forma automática.</p>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
+              <h3 className="font-semibold text-xl mb-2">
+                Notificaciones instantáneas
+              </h3>
+              <p>Alertas en tiempo real al personal responsable.</p>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
+              <h3 className="font-semibold text-xl mb-2">Historial y reportes</h3>
+              <p>Registro completo de incidencias y estadísticas gráficas.</p>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6 hover:shadow-lg transition">
+              <h3 className="font-semibold text-xl mb-2">Mantenimiento preventivo</h3>
+              <p>Agenda revisiones antes de que ocurran fallas críticas.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Beneficios */}
+      <section className="py-16 max-w-6xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Beneficios principales
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="p-4 border-l-4 border-blue-600 bg-white shadow rounded">
+            🚑 Mayor seguridad para los pacientes
+          </div>
+          <div className="p-4 border-l-4 border-blue-600 bg-white shadow rounded">
+            ⏳ Reducción del tiempo de inactividad
+          </div>
+          <div className="p-4 border-l-4 border-blue-600 bg-white shadow rounded">
+            📊 Reportes en tiempo real para decisiones estratégicas
+          </div>
+          <div className="p-4 border-l-4 border-blue-600 bg-white shadow rounded">
+            💰 Ahorro en costos de reparación
+          </div>
+          <div className="p-4 border-l-4 border-blue-600 bg-white shadow rounded">
+            👨‍⚕️ Confianza del personal médico
+          </div>
+          <div className="p-4 border-l-4 border-blue-600 bg-white shadow rounded">
+            🔒 Centralización de la información
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonios */}
+      <section className="py-16 bg-gray-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Testimonios</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white shadow rounded-2xl p-6">
+              <p className="italic mb-4">
+                "Los tiempos de respuesta a fallos se redujeron en un 60%."
+              </p>
+              <h4 className="font-semibold">Dr. Juan Ramírez</h4>
+              <span className="text-gray-500">Hospital General</span>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6">
+              <p className="italic mb-4">
+                "La generación de reportes automáticos nos ayuda a justificar
+                presupuestos y mejorar la gestión."
+              </p>
+              <h4 className="font-semibold">Lic. María López</h4>
+              <span className="text-gray-500">Administradora de Clínica</span>
+            </div>
+            <div className="bg-white shadow rounded-2xl p-6">
+              <p className="italic mb-4">
+                "Antes era complicado llevar control, ahora todo queda registrado
+                y es más fácil dar seguimiento."
+              </p>
+              <h4 className="font-semibold">Ing. Carlos Méndez</h4>
+              <span className="text-gray-500">Técnico Biomédico</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="contacto" className="py-20 bg-blue-900 text-white text-center">
+        <h2 className="text-4xl font-bold mb-6">
+          Optimiza la gestión de tus equipos médicos
+        </h2>
+        <p className="mb-8 text-lg">
+          Solicita una demostración gratuita y descubre cómo nuestro sistema puede
+          transformar la seguridad y eficiencia de tu institución.
+        </p>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#"
+          className="bg-green-500 px-8 py-3 rounded-xl text-lg font-semibold hover:bg-green-600"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          Contactar Ventas
         </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-gray-300 text-center py-6">
+        <p>
+          &copy; 2025 Sistema de Reporte de Incidencias Médicas. Todos los
+          derechos reservados.
+        </p>
       </footer>
     </div>
   );
