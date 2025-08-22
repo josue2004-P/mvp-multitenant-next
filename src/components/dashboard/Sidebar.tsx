@@ -8,7 +8,6 @@ export default function Sidebar() {
   const router = useRouter();
 
   const handleLogout = async () => {
-
     Cookies.remove("token");
 
     await signOut({ redirect: false });
@@ -28,6 +27,12 @@ export default function Sidebar() {
           onClick={() => router.push("/dashboard")}
         >
           Inicio
+        </button>
+        <button
+          className="w-full text-left p-2 rounded hover:bg-gray-700"
+          onClick={() => router.push("/dashboard/company")}
+        >
+          Compañias
         </button>
         <button
           className="w-full text-left p-2 rounded hover:bg-gray-700"

@@ -16,3 +16,11 @@ export function getSubdomainServer(req: AuthRequest): string | null {
   const subdomain = host.split(".")[0];
   return subdomain === "admin" ? subdomain : null;
 }
+
+export function getClientSubdomain(): string | null {
+  if (typeof window === "undefined") return null; // solo navegador
+  const host = window.location.hostname; // ej: "admin.localhost"
+  const parts = host.split(".");
+  if (parts.length < 2) return null; // no hay subdominio
+  return parts[0]; // "admin"
+}

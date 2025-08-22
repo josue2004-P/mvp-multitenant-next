@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getSubdomainServer } from "@/utils/getSubdomain";
-import { LoginDto } from '../../../../types/auth';
+import { LoginDto } from "../../../../types/auth";
 import { LoginUseCase } from "@/application/auth/LoginUseCase";
 
 export const authOptions = {
@@ -43,25 +43,27 @@ export const authOptions = {
       },
     }),
   ],
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+    maxAge: 3600, // ⚡ duración en segundos → 1 hora
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.accessToken = user.token;
+        token.token = user.token; // <-- mismo nombre que en JWT
         token.id = user.id;
-        token.name = user.name;
-        token.profiles = user.profiles ?? []; // aseguramos string[]
+        token.profiles = user.profiles ?? [];
       }
       return token;
     },
 
     async session({ session, token }) {
       session.user = {
-        id: token.id,
-        name: token.name,
-        email: token.email,
-        token: token.accessToken,
-        profiles: token.profiles ?? [], // aseguramos string[]
+        id: token.id!,
+        token: token.token!, // <-- coincide con JWT
+        profiles: token.profiles ?? [],
+        name: token.name!,
+        email: token.email!,
       };
       return session;
     },
