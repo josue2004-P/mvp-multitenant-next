@@ -8,7 +8,7 @@ export default function DashboardPage() {
   return (
     <div className="font-sans bg-gray-50 text-gray-800 p-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      {session && <p>Bienvenido, {session.user.name}</p>}
+      {session && <p>Bienvenido, {session.user.token}</p>}
     </div>
   );
 }

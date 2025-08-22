@@ -1,7 +1,7 @@
 // src/presentation/shared/ReduxProviderWrapper.tsx
 "use client";
 import { Provider } from "react-redux";
-import { store } from "@/store/store";
+import { store } from "@/store";
 
 export default function ReduxProviderWrapper({
   children,

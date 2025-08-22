@@ -9,12 +9,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      signIn(); // redirige al login si no hay sesión
+      signIn(); 
     }
   }, [status]);
 
   if (status === "loading") return <p>Cargando...</p>;
-  if (!session) return null; // espera redirección
+  if (!session) return null; 
 
   return (
     <div className="flex">

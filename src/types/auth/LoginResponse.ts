@@ -8,6 +8,10 @@ export interface User {
 
 export interface LoginResponse {
   token: string;
-  user: User;
-  profiles?: string[]; // roles o perfiles del usuario
+  user: {
+    id: number | string;
+    name?: string;
+    email?: string;
+  };
+  profiles?: string[]; // aquí ya es string[]
 }

@@ -1,22 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { onLogout } from "@/store/slices/userSlice";
-import { RootState } from "@/store/store";
 import Cookies from "js-cookie";
+import { signOut } from "next-auth/react"; // 👈 importa NextAuth signOut
 
 export default function Sidebar() {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
 
-  const handleLogout = () => {
-    // Limpiar estado y cookies
-    dispatch(onLogout());
+  const handleLogout = async () => {
+
     Cookies.remove("token");
 
-    // Redirigir al login
+    await signOut({ redirect: false });
+
     router.push("/auth/login");
   };
 

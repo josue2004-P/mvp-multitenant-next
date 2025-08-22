@@ -1,6 +1,8 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axios from "axios";
+import { getSubdomainServer } from "@/utils/getSubdomain";
+import { LoginDto } from '../../../../types/auth';
+import { LoginUseCase } from "@/application/auth/LoginUseCase";
 
 export const authOptions = {
   providers: [
@@ -13,36 +15,29 @@ export const authOptions = {
       async authorize(credentials, req) {
         if (!credentials) return null;
 
-        const host = req.headers["host"]; // <-- usar corchetes
-        const subdomain = host?.split(".")[0];
-
-        if (subdomain !== "admin") return null;
+        const subdomain = getSubdomainServer(req as any); // ✅ no usar NextApiRequest
+        if (!subdomain) return null;
 
         try {
-          const { data } = await axios.post(
-            "http://localhost:3000/api/v1/authentication",
-            {
-              email: credentials.email,
-              password: credentials.password,
-            },
-            {
-              headers: {
-                "X-Subdomain": subdomain,
-                "Content-Type": "application/json",
-              },
-            }
-          );
+          const loginUseCase = new LoginUseCase();
 
-          // Retornar usuario a NextAuth
-          return {
-            id: data.user.id,
-            name: data.user.name,
-            email: data.user.email,
-            token: data.token,
-            profiles: data.profiles || [],
+          const loginData: LoginDto = {
+            email: credentials.email,
+            password: credentials.password,
+            subdomain, // si tu LoginDto tiene subdomain
           };
-        } catch (err: any) {
-          console.error("Login fallido:", err.response?.data || err);
+
+          const data = await loginUseCase.execute(loginData);
+
+          return {
+            id: String(data.user.id), // ✅ convertir a string
+            name: data.user.name ?? data.user.email,
+            email: data.user.email ?? "",
+            token: data.token ?? "",
+            profiles: Array.isArray(data.profiles) ? data.profiles : [], // asegurar string[]
+          };
+        } catch (error) {
+          console.error("Login fallido:", error);
           return null;
         }
       },
@@ -55,23 +50,24 @@ export const authOptions = {
         token.accessToken = user.token;
         token.id = user.id;
         token.name = user.name;
-        token.profiles = user.profiles;
+        token.profiles = user.profiles ?? []; // aseguramos string[]
       }
       return token;
     },
+
     async session({ session, token }) {
       session.user = {
         id: token.id,
         name: token.name,
         email: token.email,
         token: token.accessToken,
-        profiles: token.profiles,
+        profiles: token.profiles ?? [], // aseguramos string[]
       };
       return session;
     },
   },
   pages: { signIn: "/auth/login" },
-};
+} satisfies AuthOptions;
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
