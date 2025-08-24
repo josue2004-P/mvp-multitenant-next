@@ -1,7 +1,7 @@
 import { Company } from "./Company";
 
-export interface CompanyResponse {
+export interface CompaniesResponse {
   message: string;
-  data: Company;
+  data: Company[];
 }
 

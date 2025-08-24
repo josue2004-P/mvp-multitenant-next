@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Company } from "@/types/company";
-
-interface CompaniesState {
-  isLoadingCompanies: boolean;
-  companies: Company[];
-  company: Company | null;
-  filtros: any[];
-  error: string | null;
-}
+import { CompaniesState, Company } from "@/types/company";
 
 const initialState: CompaniesState = {
   isLoadingCompanies: true,
@@ -48,13 +40,13 @@ export const companiesSlice = createSlice({
   },
 });
 
-export const { 
-  onLoadCompanies, 
-  onLoadCompany, 
-  onLogoutCompanies, 
-  onSetCompanyFilters, 
-  onSetError, 
-  onClearError 
+export const {
+  onLoadCompanies,
+  onLoadCompany,
+  onLogoutCompanies,
+  onSetCompanyFilters,
+  onSetError,
+  onClearError,
 } = companiesSlice.actions;
 
 export default companiesSlice.reducer;

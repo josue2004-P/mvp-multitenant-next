@@ -1,8 +1,8 @@
 import { getCompaniesRequest } from "@/services/companyService";
-import { CompanyResponse } from "@/types/company";
+import { CompaniesResponse } from "@/types/company";
 
 export class GetCompaniesUseCase {
-  async execute(): Promise<CompanyResponse> {
+  async execute(): Promise<CompaniesResponse> {
     return await getCompaniesRequest(); 
   }
 }

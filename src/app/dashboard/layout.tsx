@@ -1,20 +1,28 @@
 "use client";
 
 import Sidebar from "@/components/dashboard/Sidebar";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
 
   useEffect(() => {
+    const currentOrigin = typeof window !== "undefined" ? window.location.origin : "";
+
     if (status === "unauthenticated") {
-      signIn(); 
+      signIn(undefined, { callbackUrl: `${currentOrigin}/auth/login` });
     }
-  }, [status]);
+
+    if (session && !session.user.token) {
+      signOut({ callbackUrl: `${currentOrigin}/auth/login` });
+    }
+  }, [status, session, pathname]); 
 
   if (status === "loading") return <p>Cargando...</p>;
-  if (!session) return null; 
+  if (!session) return null;
 
   return (
     <div className="flex">

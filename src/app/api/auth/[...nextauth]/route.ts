@@ -1,3 +1,4 @@
+// auth/[...nextauth]/route.ts
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getSubdomainServer } from "@/utils/getSubdomain";
@@ -15,7 +16,8 @@ export const authOptions = {
       async authorize(credentials, req) {
         if (!credentials) return null;
 
-        const subdomain = getSubdomainServer(req as any); // ✅ no usar NextApiRequest
+        const subdomain = getSubdomainServer(req as any);
+
         if (!subdomain) return null;
 
         try {
@@ -24,17 +26,17 @@ export const authOptions = {
           const loginData: LoginDto = {
             email: credentials.email,
             password: credentials.password,
-            subdomain, // si tu LoginDto tiene subdomain
+            subdomain,
           };
 
           const data = await loginUseCase.execute(loginData);
 
           return {
-            id: String(data.user.id), // ✅ convertir a string
+            id: String(data.user.id),
             name: data.user.name ?? data.user.email,
             email: data.user.email ?? "",
             token: data.token ?? "",
-            profiles: Array.isArray(data.profiles) ? data.profiles : [], // asegurar string[]
+            profiles: Array.isArray(data.profiles) ? data.profiles : [],
           };
         } catch (error) {
           console.error("Login fallido:", error);
@@ -45,14 +47,19 @@ export const authOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 3600, // ⚡ duración en segundos → 1 hora
+    maxAge: 60 * 60, // 1 hora en segundos
+  },
+  jwt: {
+    maxAge: 60 * 60, // 1 hora en segundos
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.token = user.token; // <-- mismo nombre que en JWT
+        token.token = user.token;
         token.id = user.id;
         token.profiles = user.profiles ?? [];
+        token.name = user.name;
+        token.email = user.email;
       }
       return token;
     },
@@ -60,7 +67,7 @@ export const authOptions = {
     async session({ session, token }) {
       session.user = {
         id: token.id!,
-        token: token.token!, // <-- coincide con JWT
+        token: token.token!,
         profiles: token.profiles ?? [],
         name: token.name!,
         email: token.email!,

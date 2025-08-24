@@ -14,7 +14,7 @@ export function getSubdomainServer(req: AuthRequest): string | null {
   if (!host) return null;
 
   const subdomain = host.split(".")[0];
-  return subdomain === "admin" ? subdomain : null;
+  return subdomain;
 }
 
 export function getClientSubdomain(): string | null {
@@ -23,4 +23,14 @@ export function getClientSubdomain(): string | null {
   const parts = host.split(".");
   if (parts.length < 2) return null; // no hay subdominio
   return parts[0]; // "admin"
+}
+
+export function getRootDomain(hostname: string) {
+  // Si es localhost o no tiene puntos, devolver tal cual
+  if (hostname.includes("localhost") || !hostname.includes(".")) {
+    return "localhost";
+  }
+
+  const parts = hostname.split(".");
+  return parts.slice(-2).join("."); // toma los últimos 2 elementos, ej: midominio.com
 }
